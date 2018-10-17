@@ -1,5 +1,6 @@
 from resource_management import *
 from resource_management.libraries.script.script import Script
+import commands
 import sys, os, glob,socket
 
 # server configurations
@@ -9,8 +10,13 @@ tmp_dir = Script.get_tmp_dir()
 kylin_properties=config['configurations']['kylin']['kylin_properties']
 hdp_version =  default("/commandParams/version", None)
 downloadlocation = config['configurations']['kylin']['download.location']
+
 #install_dir = config['configurations']['kylin']['install.dir']
-install_dir = format('/opt/kylin')
+cmd = "/usr/bin/hdp-select versions"
+usr_base = "/usr/hdp/"
+base_dir = usr_base + commands.getoutput(cmd) + "/kylin"
+install_dir = format(base_dir)
+
 current_host_name = socket.gethostname()
 server_mode = "query"
 server_masters = config['clusterHostInfo']['kylin_all_hosts'][0]

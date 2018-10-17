@@ -18,8 +18,8 @@ class KylinMaster(Script):
         Execute('cd ' + params.install_dir + ';rm -rf latest; ln -s apache-kylin* latest')
         
         #mkdir
-        Execute('sudo -uhdfs hadoop fs -mkdir -p /kylin')
-        Execute('sudo -uhdfs hadoop fs -chown -R kylin:kylin /kylin')
+        Execute('su hdfs -l -c \'hdfs dfs -mkdir /kylin\'')
+        Execute('su hdfs -l -c \'hdfs dfs -chown -R kylin:kylin /kylin\'')
                 
 
     def configure(self, env):  
