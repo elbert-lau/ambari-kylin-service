@@ -13,14 +13,16 @@ class KylinMaster(Script):
               cd_access='a',
               create_parents=True
         )
-        Execute('cd ' + params.install_dir + '; wget ' + params.downloadlocation + ' -O kylin.tar.gz  ')
-        Execute('cd ' + params.install_dir + '; tar -xvf kylin.tar.gz')
+        # Execute('cd ' + params.install_dir + '; wget ' + params.downloadlocation + ' -O kylin.tar.gz  ')
+        # Execute('cd ' + params.install_dir + '; tar -xvf kylin.tar.gz')
+        
+        Execute(format("tar -xvf " + params.kylin_package_dir + "files/apache-kylin-2.5.0-bin-hbase1x.tar.gz -C " + params.install_dir))
         Execute('cd ' + params.install_dir + ';rm -rf latest; ln -s apache-kylin* latest')
         
         #mkdir
         Execute('su hdfs -l -c \'hdfs dfs -mkdir /kylin\'')
         Execute('su hdfs -l -c \'hdfs dfs -chown -R kylin:kylin /kylin\'')
-                
+        Execute('su hdfs -l -c \'hdfs dfs -chmod -R o+rw /kylin\'')
 
     def configure(self, env):  
         import params
@@ -32,19 +34,18 @@ class KylinMaster(Script):
         File(format("{tmp_dir}/kylin_init.sh"),
              content=Template("init.sh.j2"),
              mode=0o700
-             )        
+             )
         File(format("{tmp_dir}/kylin_env.rc"),
              content=Template("env.rc.j2"),
              mode=0o700
-             )              
+             )
         Execute(format("bash {tmp_dir}/kylin_init.sh"))
-             
+
     def start(self, env):
         import params
         env.set_params(params)
         self.configure(env)
         Execute(format(". {tmp_dir}/kylin_env.rc;{install_dir}/latest/bin/kylin.sh start;cp -rf {install_dir}/latest/pid /var/run/kylin.pid"))
-        
 
     def stop(self, env):
         import params
@@ -52,14 +53,12 @@ class KylinMaster(Script):
         self.configure(env)
         Execute(format(". {tmp_dir}/kylin_env.rc;{install_dir}/latest/bin/kylin.sh stop"))
 
-
     def restart(self, env):
         self.stop(env)
         self.start(env)
 
     def status(self, env):
         check_process_status("/var/run/kylin.pid")
-
 
 if __name__ == "__main__":
     KylinMaster().execute()

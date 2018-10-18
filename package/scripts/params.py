@@ -17,6 +17,14 @@ usr_base = "/usr/hdp/"
 base_dir = usr_base + commands.getoutput(cmd) + "/kylin"
 install_dir = format(base_dir)
 
+# Find current stack and version to push agent files to
+stack_name = default("/hostLevelParams/stack_name", None)
+stack_version = config['hostLevelParams']['stack_version']
+
+# Kylin archive on agent nodes
+kylin_package_dir = "/var/lib/ambari-agent/cache/stacks/" + stack_name + "/" + stack_version + "/services/KYLIN/package/"
+
+
 current_host_name = socket.gethostname()
 server_mode = "query"
 server_masters = config['clusterHostInfo']['kylin_all_hosts'][0]

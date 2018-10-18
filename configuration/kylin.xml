@@ -36,16 +36,16 @@
 #### METADATA | ENV ###
 #
 ## The metadata store in hbase
-kylin.metadata.url=kylin_metadata@hbase
+#kylin.metadata.url=kylin_metadata@hbase
 #
 ## metadata cache sync retry times
 #kylin.metadata.sync-retries=3
 #
 ## Working folder in HDFS, better be qualified absolute path, make sure user has the right permission to this directory
-kylin.env.hdfs-working-dir=/kylin
+#kylin.env.hdfs-working-dir=/kylin
 #
 ## DEV|QA|PROD. DEV will turn on some dev features, QA and PROD has no difference in terms of functions.
-kylin.env=QA
+#kylin.env=QA
 #
 ## kylin zk base path
 #kylin.env.zookeeper-base-path=/kylin
@@ -59,12 +59,12 @@ kylin.server.mode={{server_mode}}
 kylin.server.cluster-servers={{server_clusters}}
 #
 ## Display timezone on UI,format like[GMT+N or GMT-N]
-kylin.web.timezone=GMT+8
+#kylin.web.timezone=GMT+8
 #
 ## Timeout value for the queries submitted through the Web UI, in milliseconds
 #kylin.web.query-timeout=300000
 #
-kylin.web.cross-domain-enabled=true
+#kylin.web.cross-domain-enabled=true
 #
 ##allow user to export query result
 #kylin.web.export-allow-admin=true
@@ -98,13 +98,13 @@ kylin.web.cross-domain-enabled=true
 #### SOURCE ###
 #
 ## Hive client, valid value [cli, beeline]
-kylin.source.hive.client=cli
+#kylin.source.hive.client=cli
 #
 ## Absolute path to beeline shell, can be set to spark beeline instead of the default hive beeline on PATH
-kylin.source.hive.beeline-shell=beeline
+#kylin.source.hive.beeline-shell=beeline
 #
 ## Parameters for beeline client, only necessary if hive client is beeline
-kylin.source.hive.beeline-params=-n root --hiveconf hive.security.authorization.sqlstd.confwhitelist.append='mapreduce.job.*|dfs.*' -u jdbc:hive2://localhost:10000
+##kylin.source.hive.beeline-params=-n root --hiveconf hive.security.authorization.sqlstd.confwhitelist.append='mapreduce.job.*|dfs.*' -u jdbc:hive2://localhost:10000
 #
 ## While hive client uses above settings to read hive table metadata,
 ## table operations can go through a separate SparkSQL command line, given SparkSQL connects to the same Hive metastore.
@@ -112,28 +112,28 @@ kylin.source.hive.beeline-params=-n root --hiveconf hive.security.authorization.
 ##kylin.source.hive.sparksql-beeline-shell=/path/to/spark-client/bin/beeline
 ##kylin.source.hive.sparksql-beeline-params=-n root --hiveconf hive.security.authorization.sqlstd.confwhitelist.append='mapreduce.job.*|dfs.*' -u jdbc:hive2://localhost:10000
 #
-kylin.source.hive.keep-flat-table=false
+#kylin.source.hive.keep-flat-table=false
 #
 ## Hive database name for putting the intermediate flat tables
-kylin.source.hive.database-for-flat-table=default
+#kylin.source.hive.database-for-flat-table=default
 #
 ## Whether redistribute the intermediate flat table before building
-kylin.source.hive.redistribute-flat-table=true
+#kylin.source.hive.redistribute-flat-table=true
 #
 #
 #### STORAGE ###
 #
 ## The storage for final cube file in hbase
-kylin.storage.url=hbase
+#kylin.storage.url=hbase
 #
 ## The prefix of hbase table
-kylin.storage.hbase.table-name-prefix=KYLIN_
+#kylin.storage.hbase.table-name-prefix=KYLIN_
 #
 ## The namespace for hbase storage
-kylin.storage.hbase.namespace=default
+#kylin.storage.hbase.namespace=default
 #
 ## Compression codec for htable, valid value [none, snappy, lzo, gzip, lz4]
-kylin.storage.hbase.compression-codec=none
+#kylin.storage.hbase.compression-codec=none
 #
 ## HBase Cluster FileSystem, which serving hbase, format as hdfs://hbase-cluster:8020
 ## Leave empty if hbase running on same cluster with hive and mapreduce
@@ -157,11 +157,11 @@ kylin.storage.hbase.compression-codec=none
 #
 ## By default kylin can spill query's intermediate results to disks when it's consuming too much memory.
 ## Set it to false if you want query to abort immediately in such condition.
-kylin.storage.partition.aggr-spill-enabled=true
+#kylin.storage.partition.aggr-spill-enabled=true
 #
 ## The maximum number of bytes each coprocessor is allowed to scan.
 ## To allow arbitrary large scan, you can set it to 0.
-kylin.storage.partition.max-scan-bytes=3221225472
+#kylin.storage.partition.max-scan-bytes=3221225472
 #
 ## The default coprocessor timeout is (hbase.rpc.timeout * 0.9) / 1000 seconds,
 ## You can set it to a smaller value. 0 means use default.
@@ -171,13 +171,13 @@ kylin.storage.partition.max-scan-bytes=3221225472
 #### JOB ###
 #
 ## Max job retry on error, default 0: no retry
-kylin.job.retry=0
+#kylin.job.retry=0
 #
 ## Max count of concurrent jobs running
-kylin.job.max-concurrent-jobs=10
+#kylin.job.max-concurrent-jobs=10
 #
 ## The percentage of the sampling, default 100%
-kylin.job.sampling-percentage=100
+#kylin.job.sampling-percentage=100
 #
 ## If true, will send email notification on job complete
 ##kylin.job.notification-enabled=true
@@ -192,45 +192,45 @@ kylin.job.sampling-percentage=100
 #### ENGINE ###
 #
 ## Time interval to check hadoop job status
-kylin.engine.mr.yarn-check-interval-seconds=10
+#kylin.engine.mr.yarn-check-interval-seconds=10
 #
-kylin.engine.mr.reduce-input-mb=500
+#kylin.engine.mr.reduce-input-mb=500
 #
-kylin.engine.mr.max-reducer-number=500
+#kylin.engine.mr.max-reducer-number=500
 #
-kylin.engine.mr.mapper-input-rows=1000000
+#kylin.engine.mr.mapper-input-rows=1000000
 #
 ## Enable dictionary building in MR reducer
-kylin.engine.mr.build-dict-in-reducer=true
+#kylin.engine.mr.build-dict-in-reducer=true
 #
 ## Number of reducers for fetching UHC column distinct values
-kylin.engine.mr.uhc-reducer-count=1
+#kylin.engine.mr.uhc-reducer-count=1
 #
 ## Whether using an additional step to build UHC dictionary
-kylin.engine.mr.build-uhc-dict-in-additional-step=false
+#kylin.engine.mr.build-uhc-dict-in-additional-step=false
 #
 #
 #### CUBE | DICTIONARY ###
 #
-kylin.cube.cuboid-scheduler=org.apache.kylin.cube.cuboid.DefaultCuboidScheduler
-kylin.cube.segment-advisor=org.apache.kylin.cube.CubeSegmentAdvisor
+#kylin.cube.cuboid-scheduler=org.apache.kylin.cube.cuboid.DefaultCuboidScheduler
+#kylin.cube.segment-advisor=org.apache.kylin.cube.CubeSegmentAdvisor
 #
 ## 'auto', 'inmem', 'layer' or 'random' for testing 
-kylin.cube.algorithm=layer
+#kylin.cube.algorithm=layer
 #
 ## A smaller threshold prefers layer, a larger threshold prefers in-mem
-kylin.cube.algorithm.layer-or-inmem-threshold=7
+#kylin.cube.algorithm.layer-or-inmem-threshold=7
 #
-kylin.cube.aggrgroup.max-combination=4096
+#kylin.cube.aggrgroup.max-combination=32768
 #
-kylin.snapshot.max-mb=300
+#kylin.snapshot.max-mb=300
 #
-#kylin.cube.cubeplanner.enabled=false
-#kylin.cube.cubeplanner.enabled-for-existing-cube=false
+#kylin.cube.cubeplanner.enabled=true
+#kylin.cube.cubeplanner.enabled-for-existing-cube=true
 #kylin.cube.cubeplanner.expansion-threshold=15.0
 #kylin.cube.cubeplanner.recommend-cache-max-size=200
 #kylin.cube.cubeplanner.mandatory-rollup-threshold=1000
-#kylin.cube.cubeplanner.algorithm-threshold-greedy=10
+#kylin.cube.cubeplanner.algorithm-threshold-greedy=8
 #kylin.cube.cubeplanner.algorithm-threshold-genetic=23
 #
 #
@@ -239,26 +239,41 @@ kylin.snapshot.max-mb=300
 ## Controls the maximum number of bytes a query is allowed to scan storage.
 ## The default value 0 means no limit.
 ## The counterpart kylin.storage.partition.max-scan-bytes sets the maximum per coprocessor.
-kylin.query.max-scan-bytes=0
+#kylin.query.max-scan-bytes=0
 #
-kylin.query.cache-enabled=true
+#kylin.query.cache-enabled=true
+#
+## Controls extras properties for Calcite jdbc driver
+## all extras properties should undder prefix "kylin.query.calcite.extras-props."
+## case sensitive, default: true, to enable case insensitive set it to false
+## @see org.apache.calcite.config.CalciteConnectionProperty.CASE_SENSITIVE
+#kylin.query.calcite.extras-props.caseSensitive=true
+## how to handle unquoted identity, defualt: TO_UPPER, available options: UNCHANGED, TO_UPPER, TO_LOWER
+## @see org.apache.calcite.config.CalciteConnectionProperty.UNQUOTED_CASING
+#kylin.query.calcite.extras-props.unquotedCasing=TO_UPPER
+## quoting method, default: DOUBLE_QUOTE, available options: DOUBLE_QUOTE, BACK_TICK, BRACKET
+## @see org.apache.calcite.config.CalciteConnectionProperty.QUOTING
+#kylin.query.calcite.extras-props.quoting=DOUBLE_QUOTE
+## change SqlConformance from DEFAULT to LENIENT to enable group by ordinal
+## @see org.apache.calcite.sql.validate.SqlConformance.SqlConformanceEnum
+#kylin.query.calcite.extras-props.conformance=LENIENT
 #
 ## TABLE ACL
-kylin.query.security.table-acl-enabled=true
+#kylin.query.security.table-acl-enabled=true
 #
 ## Usually should not modify this
-kylin.query.interceptors=org.apache.kylin.rest.security.TableInterceptor
+#kylin.query.interceptors=org.apache.kylin.rest.security.TableInterceptor
 #
-kylin.query.escape-default-keyword=false
+#kylin.query.escape-default-keyword=false
 #
 ## Usually should not modify this
-kylin.query.transformers=org.apache.kylin.query.util.DefaultQueryTransformer,org.apache.kylin.query.util.KeywordDefaultDirtyHack
+#kylin.query.transformers=org.apache.kylin.query.util.DefaultQueryTransformer,org.apache.kylin.query.util.KeywordDefaultDirtyHack
 #
 #### SECURITY ###
 #
 ## Spring security profile, options: testing, ldap, saml
 ## with "testing" profile, user can use pre-defined name/pwd like KYLIN/ADMIN to login
-kylin.security.profile=testing
+#kylin.security.profile=testing
 #
 ## Admin roles in LDAP, for ldap and saml
 #kylin.security.acl.admin-role=admin
@@ -293,28 +308,34 @@ kylin.security.profile=testing
 #
 ## Hadoop conf folder, will export this as "HADOOP_CONF_DIR" to run spark-submit
 ## This must contain site xmls of core, yarn, hive, and hbase in one folder
-kylin.env.hadoop-conf-dir={{hadoop_conf_dir}}
+##kylin.env.hadoop-conf-dir=/etc/hadoop/conf
 #
 ## Estimate the RDD partition numbers
-kylin.engine.spark.rdd-partition-cut-mb=10
+#kylin.engine.spark.rdd-partition-cut-mb=10
 #
 ## Minimal partition numbers of rdd
-kylin.engine.spark.min-partition=1
+#kylin.engine.spark.min-partition=1
 #
 ## Max partition numbers of rdd
-kylin.engine.spark.max-partition=5000
+#kylin.engine.spark.max-partition=5000
 #
 ## Spark conf (default is in spark/conf/spark-defaults.conf)
-kylin.engine.spark-conf.spark.master=yarn
-kylin.engine.spark-conf.spark.submit.deployMode=cluster
-kylin.engine.spark-conf.spark.yarn.queue=default
-kylin.engine.spark-conf.spark.executor.memory=1G
-kylin.engine.spark-conf.spark.executor.cores=2
-kylin.engine.spark-conf.spark.executor.instances=1
-kylin.engine.spark-conf.spark.eventLog.enabled=true
-kylin.engine.spark-conf.spark.eventLog.dir=hdfs\:///kylin/spark-history
-kylin.engine.spark-conf.spark.history.fs.logDirectory=hdfs\:///kylin/spark-history
-kylin.engine.spark-conf.spark.hadoop.yarn.timeline-service.enabled=false
+#kylin.engine.spark-conf.spark.master=yarn
+##kylin.engine.spark-conf.spark.submit.deployMode=cluster
+#kylin.engine.spark-conf.spark.yarn.queue=default
+#kylin.engine.spark-conf.spark.driver.memory=2G
+#kylin.engine.spark-conf.spark.executor.memory=4G
+#kylin.engine.spark-conf.spark.executor.instances=40
+#kylin.engine.spark-conf.spark.yarn.executor.memoryOverhead=1024
+#kylin.engine.spark-conf.spark.shuffle.service.enabled=true
+#kylin.engine.spark-conf.spark.eventLog.enabled=true
+#kylin.engine.spark-conf.spark.eventLog.dir=hdfs\:///kylin/spark-history
+#kylin.engine.spark-conf.spark.history.fs.logDirectory=hdfs\:///kylin/spark-history
+#kylin.engine.spark-conf.spark.hadoop.yarn.timeline-service.enabled=false
+#
+#### Spark conf for specific job
+#kylin.engine.spark-conf-mergedict.spark.executor.memory=6G
+#kylin.engine.spark-conf-mergedict.spark.memory.fraction=0.2
 #
 ## manually upload spark-assembly jar to HDFS and then set this property will avoid repeatedly uploading jar at runtime
 ##kylin.engine.spark-conf.spark.yarn.archive=hdfs://namenode:8020/kylin/spark/spark-libs.jar
@@ -350,10 +371,15 @@ kylin.engine.spark-conf.spark.executor.extraJavaOptions=-Dhdp.version=current
 ##kylin.source.jdbc.filed-delimiter=|
     </value>
   </property>
-<property>
+  <property>
     <name>download.location</name>
     <value>http://mirror.bit.edu.cn/apache/kylin/apache-kylin-2.4.1/apache-kylin-2.4.1-bin-hbase1x.tar.gz</value>
     <description>Location to download gstore</description>
- </property> 
-
+  </property> 
+  <property>
+    <name>kylin_user</name>
+    <value>kylin</value>
+    <property-type>USER</property-type>
+    <description>Kylin Service Account User</description>
+  </property>
 </configuration>
