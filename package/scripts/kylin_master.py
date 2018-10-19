@@ -17,6 +17,7 @@ class KylinMaster(Script):
         # Execute('cd ' + params.install_dir + '; tar -xvf kylin.tar.gz')
         
         Execute(format("tar -xvf " + params.kylin_package_dir + "files/apache-kylin-2.5.0-bin-hbase1x.tar.gz -C " + params.install_dir))
+        Execute(format("ln -s " + params.install_dir + " " + params.usr_base + "current/kylin"))
         Execute('cd ' + params.install_dir + ';rm -rf latest; ln -s apache-kylin* latest')
         
         #mkdir
