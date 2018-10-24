@@ -19,10 +19,8 @@ class NginxMaster(Script):
         File(format("/etc/nginx/nginx.conf"), content=InlineTemplate(params.nginx_conf))
              
     def start(self, env):
-        import params
-        env.set_params(params)
         self.configure(env)
-        Execute("service nginx start")
+        Execute(". {tmp_dir}/kylin_env.rc; service nginx start")
         
 
     def stop(self, env):
@@ -30,7 +28,8 @@ class NginxMaster(Script):
 
 
     def restart(self, env):
-        Execute("nginx -s reload")
+        self.configure(env)
+        Execute(". {tmp_dir}/kylin_env.rc; nginx -s reload")
 
     def status(self, env):
         Execute("service nginx status")

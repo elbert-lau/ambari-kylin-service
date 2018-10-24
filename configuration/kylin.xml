@@ -53,6 +53,7 @@
 #### SERVER | WEB | RESTCLIENT ###
 #
 ## Kylin server mode, valid value [all, query, job]
+kylin.rest.servers={{server_clusters}}
 kylin.server.mode={{server_mode}}
 #
 ## List of web servers in use, this enables one web server instance to sync up with other servers.
